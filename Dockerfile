@@ -9,10 +9,10 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 
-ARG user=root
-#ARG group=root
-#ARG uid=1000
-#ARG gid=1000
+ARG user=jenkins
+ARG group=jenkins
+ARG uid=1000
+ARG gid=1000
 ARG http_port=8080
 ARG agent_port=50000
 
@@ -22,8 +22,8 @@ ENV JENKINS_SLAVE_AGENT_PORT ${agent_port}
 # Jenkins is run with user `jenkins`, uid = 1000
 # If you bind mount a volume from the host or a data container,
 # ensure you use the same uid
-# RUN groupadd -g ${gid} ${group} \
-#     && useradd -d "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
+RUN groupadd -g ${gid} ${group} \
+    && useradd -d "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
 
 # Jenkins home directory is a volume, so configuration and build history
 # can be persisted and survive image upgrades
