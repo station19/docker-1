@@ -1,0 +1,20 @@
+version: '2'
+services:
+        jenkins:
+            image: jenkins_ansible:v1
+            restart: always
+            ulimits:
+                nproc: 10240
+                nofile:
+                    soft: 10240
+                    hard: 10240
+            networks:
+                - jenkins_networks
+            ports:
+                - 80:8080
+                - 50000:50000
+            hostname: jenkins
+            container_name: jenkins
+networks:
+        jenkins_networks:
+            driver: bridge
