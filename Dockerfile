@@ -6,6 +6,7 @@ RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 COPY sources.list /etc/apt/
 RUN apt-get update \
   && apt-get install -y sudo tree ansible vim git curl wget \
+  && echo 'jenkins   ALL=(ALL)    NOPASSWD: ALL' >>/etc/sudoers \
   && rm -rf /var/lib/apt/lists/*
 
 
