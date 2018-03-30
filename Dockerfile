@@ -3,7 +3,14 @@ FROM openjdk:8-jdk
 RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
      && echo 'Asia/Shanghai' > /etc/timezone
 
+#开呗源
 COPY sources.list /etc/apt/
+
+#免密登陆去掉首次提示
+#StrictHostKeyChecking no
+#UserKnownHostsFile /dev/null
+COPY ssh_config /etc/ssh/
+
 RUN apt-get update \
   && apt-get install -y sudo tree ansible vim git curl wget \
   && echo 'jenkins   ALL=(ALL)    NOPASSWD: ALL' >>/etc/sudoers \
